@@ -1,8 +1,8 @@
 import pygame
-import random
-import sys
-from colores import BLACK, WHITE
+from colores import WHITE
 from load_images import *
+from player import *
+from enemy import *
 from biblioteca_parcial import *
 from data import *
 
@@ -15,159 +15,6 @@ HEIGHT = 600
 
 # Timer
 clock = pygame.time.Clock()
-
-# Clase de la nave
-class Player:
-    def __init__(self):
-        player_image = load_images_player()
-        self.image = pygame.transform.scale(player_image, (30, 30))  # Cambiar el tamaño de la imagen
-        self.image.set_colorkey(BLACK)
-        self.rect = self.image.get_rect()
-        self.rect.centerx = WIDTH // 2
-        self.rect.bottom = HEIGHT - 10
-        self.speed_x = 0
-
-    def update(self):
-        self.speed_x = 0
-        keystate = pygame.key.get_pressed()
-        if keystate[pygame.K_LEFT]:
-            self.speed_x = -2 #velocidad jugador
-        if keystate[pygame.K_RIGHT]:
-            self.speed_x = 2 #velocidad jugador
-        self.rect.x += self.speed_x
-        if self.rect.right > WIDTH:
-            self.rect.right = WIDTH
-        if self.rect.left < 0:
-            self.rect.left = 0
-
-    def shoot(self):
-        bullet = Bullet(self.rect.centerx, self.rect.top)
-        bullets.append(bullet)
-
-# Clase de las balas
-class Bullet:
-    def __init__(self, x, y):
-        bullet_image = load_images_bullet()
-        self.image = pygame.transform.scale(bullet_image, (15, 15))  # Redimensionar la imagen
-        self.image.set_colorkey(WHITE) 
-        self.rect = self.image.get_rect()
-        self.rect.centerx = x
-        self.rect.bottom = y
-        self.speed_y = -10
-
-    def update(self):
-        self.rect.y += self.speed_y
-        if self.rect.bottom < 0:
-            bullets.remove(self)
-
-# Clase de las naves enemigas
-class Enemy:
-    def __init__(self, x=None):
-        enemy_image = load_images_enemy()
-        self.image = pygame.transform.scale(enemy_image, (30, 30))
-        self.image.set_colorkey(WHITE)
-        self.rect = self.image.get_rect()
-        self.rect.x = x if x is not None else random.randrange(WIDTH - self.rect.width)
-        self.rect.y = -self.rect.height
-        self.speed_x = 0
-        self.speed_y = 0
-        self.move_direction = random.choice([-1, 1])
-        self.start_moving = False
-        self.move_timer = 0
-
-    def update(self):
-        if not self.start_moving:
-            return
-        self.move_timer += clock.get_time()  # Incrementar el temporizador de movimiento
-        if self.move_timer >= enemy_move_delay:
-            self.rect.y += self.speed_y
-            self.rect.x += self.speed_x * self.move_direction
-            if self.rect.left <= 0 or self.rect.right >= WIDTH:
-                self.move_direction *= -1
-            if self.rect.top > HEIGHT:
-                enemies.remove(self)  # Eliminar enemigo cuando sale de la pantalla
-            # Reiniciar el temporizador de movimiento
-            self.move_timer = 0
-
-    def start_movement(self):
-        self.start_moving = True
-        self.speed_x = random.choice([-1, 1]) * random.uniform(1, 3)
-        self.speed_y = random.uniform(1, 3)
-
-def start_stage(stage):
-    global enemy_move_delay
-    stage_text = "Stage " + str(stage)
-    
-    if stage == 1:
-        enemy_move_delay = 150  # Establecer el retraso de movimiento para el nivel 1
-        enemy_image = pygame.image.load("galaga_main/enemigo.png").convert_alpha()
-        stage_text = font.render("STAGE 1", True, WHITE)
-    elif stage == 2:
-        enemy_move_delay = 60  # Establecer el retraso de movimiento para el nivel 2
-        enemy_image = pygame.image.load("galaga_main/enemi2.png").convert_alpha()
-        enemy_image.set_colorkey(WHITE)
-        stage_text = font.render("STAGE 2", True, WHITE)
-    elif stage == 3:
-        enemy_move_delay = 30  # Ajusta el retraso de movimiento para el nivel 3
-        enemy_image = pygame.image.load("galaga_main/enemi3.png").convert_alpha()
-        stage_text = font.render("STAGE 3", True, WHITE)
-    elif stage == 4:
-        enemy_move_delay = 20  # Ajusta el retraso de movimiento para el nivel 3
-        enemy_image = pygame.image.load("galaga_main/enemi4.png").convert_alpha()
-        stage_text = font.render("STAGE 4", True, WHITE)
-
-    enemy_image = pygame.transform.scale(enemy_image, (30, 30))
-    enemy_image.set_colorkey(WHITE)
-
-    enemy_rows = 7  # Número de filas de enemigos
-    enemy_columns = [12, 10, 8, 6, 4, 2, 1]  # Número de enemigos por columna en cada fila
-
-    enemy_width = 30
-    enemy_height = 30
-    enemy_padding_x = 10  # Espaciado horizontal entre enemigos
-    enemy_padding_y = 10  # Espaciado vertical entre enemigos
-
-    start_y = 50  # Posición y de la primer fila de enemigos
-
-    for row in range(enemy_rows):
-        num_enemies = enemy_columns[row]
-        enemy_row_width = num_enemies * enemy_width + (num_enemies - 1) * enemy_padding_x
-        row_start_x = (WIDTH - enemy_row_width) // 2
-
-        for column in range(num_enemies):
-            x = row_start_x + (enemy_width + enemy_padding_x) * column
-            y = start_y + (enemy_height + enemy_padding_y) * row
-            enemy = Enemy(x)
-            enemy.image = enemy_image  # Cambiar la imagen del enemigo
-            enemy.rect.x = x
-            enemy.rect.y = y
-            enemies.append(enemy)
-
-    return stage_text
-
-def get_user_name():
-    user_input = ""
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    return user_input
-                elif event.key == pygame.K_BACKSPACE:
-                    user_input = user_input[:-1]
-                else:
-                    user_input += event.unicode
-        
-        screen.fill(BLACK)
-        font = pygame.font.SysFont("Bauhaus 93", 20)
-        input_text = font.render("Ingrese su nombre: " + user_input, True, WHITE)
-        input_text_rect = input_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-        screen.blit(input_text, input_text_rect)
-        pygame.display.flip()
-        clock.tick(60)
-
 
 # Inicialización de la pantalla
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -199,34 +46,31 @@ pause_text = font.render("PAUSE", True, WHITE)
 pause_text_rect = pause_text.get_rect()
 pause_text_rect.center = (WIDTH // 2, HEIGHT // 2)
 
-# Temporizador
+# Inicializo
 score = 0
 lives = 3
 
 # Carga de sonidos
-pygame.mixer.music.load("galaga_main/theme.mp3")
+pygame.mixer.music.load("galaga_main/theme.mp3") 
 pygame.mixer.music.play(-1)
 shoot_sound = pygame.mixer.Sound("galaga_main/shoot.mp3")
 collision_sound = pygame.mixer.Sound("galaga_main/collision.mp3")
-
 
 # Pantallas de etapa
 stage_text = font.render("", True, WHITE)
 stage_text_rect = stage_text.get_rect()
 stage_text_rect.center = (WIDTH // 2, HEIGHT // 2)
 
-
-# Pedir nombre usuario
+# Pedir nombre al usuario
 player_name = get_user_name()
 
 # Loop principal del juego
-
 running = True
 start_time = pygame.time.get_ticks()  # Obtener el tiempo de inicio del juego
 stage = 1
-stage_text = start_stage(stage)
-
+stage_text = start_stage(stage, enemies)
 show_main_menu()
+
 while running:
     elapsed_time = pygame.time.get_ticks() - start_time
     clock.tick(60)
@@ -243,7 +87,7 @@ while running:
                     stage = 0
                     bullets = []
                     enemies = []
-                    start_stage(stage)
+                    start_stage(stage, enemies)
                     player.rect.centerx = WIDTH // 2
                     player.rect.bottom = HEIGHT - 10
                     score = 0
@@ -251,8 +95,8 @@ while running:
                     game_over = False
                     game_started = False
                     start_time = pygame.time.get_ticks()
-                else:
-                    player.shoot()
+                else: 
+                    player.shoot(bullets)
                     shoot_sound.play()
             elif event.key == pygame.K_p:
                 game_paused = not game_paused
@@ -270,10 +114,10 @@ while running:
     if game_started and not game_paused and not game_over:
         player.update()
         for bullet in bullets:
-            bullet.update()
+            bullet.update(bullets)
         for enemy in enemies:
             enemy.start_movement()
-            enemy.update()
+            enemy.update(enemies)
 
         # # Colisiones del jugador con los enemigos
         collided_enemies = []  # Lista para almacenar los enemigos con los que colisionó el jugador
@@ -292,7 +136,7 @@ while running:
 
         enemy_height = 30
         for enemy in enemies:
-            if enemy.rect.y + enemy_height >= HEIGHT:  # Verificar si el enemigo ha alcanzado la parte inferior de la pantalla
+            if enemy.rect.y + enemy_height >= HEIGHT:  # Verificar si el enemigo alcanzo la parte inferior de la pantalla
                 # Restar una vida a la nave
                 lives -= 1
                 enemies.remove(enemy)
@@ -318,18 +162,17 @@ while running:
             if enemy in enemies:
                 enemies.remove(enemy)
 
-
         # Verificar si se han eliminado todos los enemigos
         if not enemies and not game_over:
         # Pasar al siguiente nivel
             stage += 1
             bullets = []
             enemies = []
-            start_stage(stage)  # Actualizar el nivel
+            start_stage(stage, enemies)  # Actualizar el nivel
             # Crear la nave del jugador
             player = Player()
-            player.rect.centerx = WIDTH // 2  # Establecer la posición horizontal en el centro de la pantalla
-            player.rect.bottom = HEIGHT - 10  # Establecer la posición vertical en la parte inferior de la pantalla
+            player.rect.centerx = WIDTH // 2  # posicion horizontal en el centro de la pantalla
+            player.rect.bottom = HEIGHT - 10  # posicion vertical en la parte inferior de la pantalla
             show_level_completed(screen, font)
             level_completed = True
 
@@ -344,7 +187,7 @@ while running:
     else:
         draw_game_screen(screen, player, bullets, enemies)
 
-    # Mostrar el puntaje, las vidas y el tiempo si el juego no ha terminado
+    # Mostrar el puntaje, las vidas y el tiempo si el juego no termino
     if not game_over:
         draw_score(screen, font, score)
         draw_lives(screen, font, lives)

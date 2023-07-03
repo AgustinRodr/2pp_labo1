@@ -93,7 +93,6 @@ def show_game_over_screen(screen, font, player_name, score):
     pygame.mixer.music.stop()  # Detener la reproducción de la música
     # Guardar el puntaje en la base de datos
     save_score(player_name, score)
-
     # Obtener el top 5 de los mejores puntajes
     top_scores = get_scores()
     # Mostrar el top 5 de los mejores puntajes
