@@ -63,7 +63,7 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 Para instalar las librerías necesarias, asegurate de tener **Python 3.13+** y luego ejecutá:
 
 ```bash
-git clone https://github.com/AgustinRodr/2pp_labo1.git
-cd 2pp_labo1
+git clone https://github.com/AgustinRodr/galaga_python.git
+cd galaga_python
 pip install -r requirements.txt
 
