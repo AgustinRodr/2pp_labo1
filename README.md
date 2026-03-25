@@ -1,6 +1,6 @@
 # Galaga Clone 🎮
 
-Proyecto académico inspirado en el clásico **Galaga**, desarrollado en **Python 3.13** con **Pygame 2.6.1**.  
+Proyecto en el clásico **Galaga**, desarrollado en **Python 3.13** con **Pygame 2.6.1**.  
 Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y sistema de puntuaciones.
 
 ---
@@ -14,29 +14,15 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 
 ---
 
-## 📂 Estructura del proyecto
-      
-2pp_labo1/
-│── galaga_main/ 
-│   ├── assets/
-│   │   ├── images/        # Sprites del jugador y 
-│   │   └── sounds/        # Música y efectos 
-│   ├── src/ 
-│   │   ├── galaga.py      # Archivo principal del juego 
-│   │   ├── player.py      # Lógica del jugador 
-│   │   ├── enemy.py       # Lógica de enemigos 
-│   │   ├── load_images.py # Funciones de carga de imágenes 
-│   │   └── biblioteca_parcial.py # Funciones auxiliares 
-│   └── scores.db          # Base de datos de puntuaciones 
-└── README.md
-
----
 ## 📸 Capturas de pantalla
 *(Se irán mejorando con fondos y estilos más atractivos)*
 
 ### Pantalla de inicio
 
-![Login para Score](galaga_main/assets/images/user0.png)
+### Login
+![Login para Score](galaga_main/assets/images/user0.png) 
+
+### Inicio
 ![Primer pantalla](galaga_main/assets/images/screenshoot_level0.png)
 
 ### Gameplay
@@ -56,15 +42,21 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 ### Final
 ![Game Over](galaga_main/assets/images/gameover.png)
 
+---
+
 ## 🎮 Controles
 - Flechas ← → : mover jugador
 - Barra espaciadora : disparar
 - P : pausar
 - ESC : salir
 
+---
+
 ## ⚙️ Requisitos
 - Python 3.13+
 - Pygame 2.6.1
+
+---
 
 ## 📦 Instalación
 
@@ -74,5 +66,4 @@ Para instalar las librerías necesarias, asegurate de tener **Python 3.13+** y l
 git clone https://github.com/AgustinRodr/2pp_labo1.git
 cd 2pp_labo1
 pip install -r requirements.txt
-
 
