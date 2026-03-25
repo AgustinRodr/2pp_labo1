@@ -2,7 +2,7 @@ import pygame
 import random
 import sys
 from load_images import *
-
+from biblioteca_parcial import *
 pygame.init()
 pygame.font.init()
 
@@ -59,20 +59,20 @@ def start_stage(stage, enemies):
 
     if stage == 1:
         enemy_move_delay = 150  # Establecer el retraso de movimiento para el nivel 1
-        enemy_image = pygame.image.load("galaga_main/enemigo.png").convert_alpha()
+        enemy_image = load_image("enemigo.png").convert_alpha()
         stage_text = font.render("STAGE 1", True, WHITE)
     elif stage == 2:
         enemy_move_delay = 60  # Establecer el retraso de movimiento para el nivel 2
-        enemy_image = pygame.image.load("galaga_main/enemi2.png").convert_alpha()
+        enemy_image = load_image("enemi2.png").convert_alpha()
         enemy_image.set_colorkey(WHITE)
         stage_text = font.render("STAGE 2", True, WHITE)
     elif stage == 3:
         enemy_move_delay = 30  # Ajusta el retraso de movimiento para el nivel 3
-        enemy_image = pygame.image.load("galaga_main/enemi3.png").convert_alpha()
+        enemy_image = load_image("enemi3.png").convert_alpha()
         stage_text = font.render("STAGE 3", True, WHITE)
     elif stage == 4:
         enemy_move_delay = 20  # Ajusta el retraso de movimiento para el nivel 3
-        enemy_image = pygame.image.load("galaga_main/enemi4.png").convert_alpha()
+        enemy_image = load_image("enemi4.png").convert_alpha()
         stage_text = font.render("STAGE 4", True, WHITE)
 
     if enemy_image is not None:
@@ -107,6 +107,8 @@ def start_stage(stage, enemies):
 
 def get_user_name():
     user_input = ""
+    font = pygame.font.SysFont("Bauhaus 93", 20)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -114,15 +116,19 @@ def get_user_name():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    return user_input
+                    return user_input if user_input else "Jugador"
                 elif event.key == pygame.K_BACKSPACE:
                     user_input = user_input[:-1]
+                elif event.key == pygame.K_ESCAPE:
+                    return "Jugador"
                 else:
-                    user_input += event.unicode
-        
+                    if len(user_input) < 15:  # límite de caracteres
+                        user_input += event.unicode
+
+        # Dibujar pantalla
         screen.fill(BLACK)
-        font = pygame.font.SysFont("Bauhaus 93", 20)
-        input_text = font.render("Ingrese su nombre: " + user_input, True, WHITE)
+        cursor = "|" if pygame.time.get_ticks() % 1000 < 500 else ""
+        input_text = font.render("Ingrese su nombre: " + user_input + cursor, True, WHITE)
         input_text_rect = input_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
         screen.blit(input_text, input_text_rect)
         pygame.display.flip()

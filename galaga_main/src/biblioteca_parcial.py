@@ -1,7 +1,8 @@
-import pygame
+import os, pygame
 from data import *
 from load_images import *
 from colores import *
+
 
 # Inicialización de Pygame
 pygame.init()
@@ -20,7 +21,7 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont("Bauhaus 93", 20)
 
 def show_main_menu():
-    background_image = pygame.image.load("galaga_main/space.jpg")  # Ruta de la imagen de fondo
+    background_image = load_image("space.jpg")  # Ruta de la imagen de fondo
     background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
     running = True
@@ -113,3 +114,22 @@ def draw_game_screen(screen, player, bullets, enemies):
         screen.blit(bullet.image, bullet.rect)
     for enemy in enemies:
         screen.blit(enemy.image, enemy.rect)
+
+def show_victory_screen(screen, font, score=0, player_name=""):
+    screen.fill((0, 0, 0))
+
+    victory_text = font.render("¡VICTORIA!", True, WHITE)
+    victory_rect = victory_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 40))
+    screen.blit(victory_text, victory_rect)
+
+    score_text = font.render(f"Puntaje final: {score}", True, WHITE)
+    score_rect = score_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    screen.blit(score_text, score_rect)
+
+    if player_name:
+        name_text = font.render(f"Jugador: {player_name}", True, WHITE)
+        name_rect = name_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 40))
+        screen.blit(name_text, name_rect)
+
+    pygame.display.flip()
+    pygame.time.delay(4000)  # espera 4 segundos

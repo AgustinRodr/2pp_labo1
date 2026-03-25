@@ -51,10 +51,10 @@ score = 0
 lives = 3
 
 # Carga de sonidos
-pygame.mixer.music.load("galaga_main/theme.mp3") 
+pygame.mixer.music.load("galaga_main/assets/sounds/theme.mp3") 
 pygame.mixer.music.play(-1)
-shoot_sound = pygame.mixer.Sound("galaga_main/shoot.mp3")
-collision_sound = pygame.mixer.Sound("galaga_main/collision.mp3")
+shoot_sound = pygame.mixer.Sound("galaga_main/assets/sounds/shoot.mp3")
+collision_sound = pygame.mixer.Sound("galaga_main/assets/sounds/collision.mp3")
 
 # Pantallas de etapa
 stage_text = font.render("", True, WHITE)
@@ -165,16 +165,20 @@ while running:
         # Verificar si se han eliminado todos los enemigos
         if not enemies and not game_over:
         # Pasar al siguiente nivel
-            stage += 1
-            bullets = []
-            enemies = []
-            start_stage(stage, enemies)  # Actualizar el nivel
-            # Crear la nave del jugador
-            player = Player()
-            player.rect.centerx = WIDTH // 2  # posicion horizontal en el centro de la pantalla
-            player.rect.bottom = HEIGHT - 10  # posicion vertical en la parte inferior de la pantalla
-            show_level_completed(screen, font)
-            level_completed = True
+            if stage < 4:
+                stage += 1
+                bullets = []
+                enemies = []
+                start_stage(stage, enemies)  # Actualizar el nivel
+                # Crear la nave del jugador
+                player = Player()
+                player.rect.centerx = WIDTH // 2  # posicion horizontal en el centro de la pantalla
+                player.rect.bottom = HEIGHT - 10  # posicion vertical en la parte inferior de la pantalla
+                show_level_completed(screen, font)
+                level_completed = True
+            else:
+                show_victory_screen(screen, font, score, player_name)
+                running = False
 
     # Dibujado en la pantalla
     background_image = load_images_background()
