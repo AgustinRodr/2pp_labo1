@@ -62,16 +62,16 @@ def start_stage(stage, enemies):
         enemy_image = load_image("enemigo.png").convert_alpha()
         stage_text = font.render("STAGE 1", True, WHITE)
     elif stage == 2:
-        enemy_move_delay = 60  # Establecer el retraso de movimiento para el nivel 2
+        enemy_move_delay = 150#60  # Establecer el retraso de movimiento para el nivel 2
         enemy_image = load_image("enemi2.png").convert_alpha()
         enemy_image.set_colorkey(WHITE)
         stage_text = font.render("STAGE 2", True, WHITE)
     elif stage == 3:
-        enemy_move_delay = 30  # Ajusta el retraso de movimiento para el nivel 3
+        enemy_move_delay = 150#30  # Ajusta el retraso de movimiento para el nivel 3
         enemy_image = load_image("enemi3.png").convert_alpha()
         stage_text = font.render("STAGE 3", True, WHITE)
     elif stage == 4:
-        enemy_move_delay = 20  # Ajusta el retraso de movimiento para el nivel 3
+        enemy_move_delay = 150#20  # Ajusta el retraso de movimiento para el nivel 3
         enemy_image = load_image("enemi4.png").convert_alpha()
         stage_text = font.render("STAGE 4", True, WHITE)
 

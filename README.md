@@ -44,7 +44,7 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 ![Game Over](galaga_main/assets/images/gameover.png)
 
 ### Victoria
-![Game Over](galaga_main/assets/images/gameover.png)
+![Game Over](galaga_main/assets/images/screenshoot_victory.png)
 
 ---
 
