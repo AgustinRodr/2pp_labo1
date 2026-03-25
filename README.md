@@ -37,14 +37,14 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 ### Pantalla de inicio
 
 ![Login para Score](galaga_main/assets/images/user0.png)
-![Primer pantalla](galaga_main/assets/images/screenshootlevel_0.png)
+![Primer pantalla](galaga_main/assets/images/screenshoot_level0.png)
 
 ### Gameplay
 
-![Nivel 1](galaga_main/assets/images/screenshootlevel_1.png)
-![Nivel 2](galaga_main/assets/images/screenshootlevel_2.png)
-![Nivel 3](galaga_main/assets/images/screenshootlevel_3.png)
-![Nivel 4](galaga_main/assets/images/screenshootlevel_4.png)
+![Nivel 1](galaga_main/assets/images/screenshoot_level1.png)
+![Nivel 2](galaga_main/assets/images/screenshoot_level2.png)
+![Nivel 3](galaga_main/assets/images/screenshoot_level3.png)
+![Nivel 4](galaga_main/assets/images/screenshoot_level4.png)
 
 ### Final
 
