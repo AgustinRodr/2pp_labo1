@@ -6,11 +6,12 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 ---
 
 ## 🚀 Características
-- Jugador controlable con disparos.
-- Enemigos con diferentes sprites y velocidades según el nivel.
+- Nave controlable con disparos.
+- Enemigos con diferentes patrones de ataque y velocidades según el nivel.
 - Música de fondo y efectos de sonido.
-- Sistema de puntuaciones persistente con **SQLite (`scores.db`)**.
-- Escalado de dificultad por etapas.
+- Sistema de puntuación dinámico con **SQLite (`scores.db`)**.
+ > Los puntajes actuales están calibrados para demostraciones y capturas, con el objetivo de mostrar el funcionamiento del sistema de guardado.
+- Escalado de dificultad por etapas, dificultad calibrada para demostraciones y capturas.
 
 ---
 
@@ -39,7 +40,10 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 ### Nivel 4
 ![Nivel 4](galaga_main/assets/images/screenshoot_level4.png)
 
-### Final
+### Game Over
+![Game Over](galaga_main/assets/images/gameover.png)
+
+### Victoria
 ![Game Over](galaga_main/assets/images/gameover.png)
 
 ---
@@ -49,6 +53,7 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 - Barra espaciadora : disparar
 - P : pausar
 - ESC : salir
+> ⚠️ Este apartado está en desarrollo: se irán incorporando nuevas mecánicas, mejoras en la jugabilidad y controles adicionales en futuras versiones.
 
 ---
 
