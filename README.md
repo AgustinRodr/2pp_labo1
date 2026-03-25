@@ -41,13 +41,19 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 
 ### Gameplay
 
+### Nivel 1
 ![Nivel 1](galaga_main/assets/images/screenshoot_level1.png)
+
+### Nivel 2
 ![Nivel 2](galaga_main/assets/images/screenshoot_level2.png)
+
+### Nivel 3
 ![Nivel 3](galaga_main/assets/images/screenshoot_level3.png)
+
+### Nivel 4
 ![Nivel 4](galaga_main/assets/images/screenshoot_level4.png)
 
 ### Final
-
 ![Game Over](galaga_main/assets/images/gameover.png)
 
 ## 🎮 Controles
@@ -60,7 +66,13 @@ Incluye mecánicas de disparo, enemigos con distintos patrones de movimiento y s
 - Python 3.13+
 - Pygame 2.6.1
 
-Instalación de dependencias:
+## 📦 Instalación
+
+Para instalar las librerías necesarias, asegurate de tener **Python 3.13+** y luego ejecutá:
+
 ```bash
-pip install pygame
+git clone https://github.com/AgustinRodr/2pp_labo1.git
+cd 2pp_labo1
+pip install -r requirements.txt
+
 
